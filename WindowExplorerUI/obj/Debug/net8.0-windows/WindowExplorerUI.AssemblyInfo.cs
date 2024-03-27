@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WindowExplorerUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f59f06ce0323f353aa78ca9e8a140a4c7503fde")]
 [assembly: System.Reflection.AssemblyProductAttribute("WindowExplorerUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WindowExplorerUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

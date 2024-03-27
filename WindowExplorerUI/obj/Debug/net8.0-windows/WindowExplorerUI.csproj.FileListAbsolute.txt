@@ -14,3 +14,4 @@ D:\SEM2 Basic network programming\WindowExplorerUI\WindowExplorerUI\obj\Debug\ne
 D:\SEM2 Basic network programming\WindowExplorerUI\WindowExplorerUI\obj\Debug\net8.0-windows\WindowExplorerUI.pdb
 D:\SEM2 Basic network programming\WindowExplorerUI\WindowExplorerUI\obj\Debug\net8.0-windows\WindowExplorerUI.genruntimeconfig.cache
 D:\SEM2 Basic network programming\WindowExplorerUI\WindowExplorerUI\obj\Debug\net8.0-windows\ref\WindowExplorerUI.dll
+D:\SEM2 Basic network programming\WindowExplorerUI\WindowExplorerUI\obj\Debug\net8.0-windows\WindowExplorerUI.sourcelink.json

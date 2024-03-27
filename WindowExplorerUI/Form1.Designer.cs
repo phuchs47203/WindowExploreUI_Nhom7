@@ -29,48 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            label1 = new Label();
-            txtPath = new TextBox();
-            button1 = new Button();
-            displayResult = new ListView();
+            TreeNode treeNode1 = new TreeNode("D:\\");
+            TreeNode treeNode2 = new TreeNode("C:\\");
             imageList1 = new ImageList(components);
+            treeView1 = new TreeView();
+            richTextBox1 = new RichTextBox();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(34, 18);
-            label1.Name = "label1";
-            label1.Size = new Size(36, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Path";
-            // 
-            // txtPath
-            // 
-            txtPath.Location = new Point(91, 12);
-            txtPath.Name = "txtPath";
-            txtPath.Size = new Size(581, 23);
-            txtPath.TabIndex = 1;
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(700, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Browse";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // displayResult
-            // 
-            displayResult.Location = new Point(34, 52);
-            displayResult.Name = "displayResult";
-            displayResult.Size = new Size(1201, 467);
-            displayResult.TabIndex = 3;
-            displayResult.UseCompatibleStateImageBehavior = false;
             // 
             // imageList1
             // 
@@ -78,27 +42,42 @@
             imageList1.ImageSize = new Size(16, 16);
             imageList1.TransparentColor = Color.Transparent;
             // 
+            // treeView1
+            // 
+            treeView1.Location = new Point(12, 12);
+            treeView1.Name = "treeView1";
+            treeNode1.Name = "D_disk";
+            treeNode1.Text = "D:\\";
+            treeNode2.Name = "C_disk";
+            treeNode2.Text = "C:\\";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode1, treeNode2 });
+            treeView1.Size = new Size(163, 488);
+            treeView1.TabIndex = 0;
+            treeView1.AfterSelect += treeView1_AfterSelect;
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(181, 12);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(732, 488);
+            richTextBox1.TabIndex = 1;
+            richTextBox1.Text = "";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1271, 531);
-            Controls.Add(displayResult);
-            Controls.Add(button1);
-            Controls.Add(txtPath);
-            Controls.Add(label1);
+            ClientSize = new Size(934, 512);
+            Controls.Add(richTextBox1);
+            Controls.Add(treeView1);
             Name = "Form1";
             Text = "Window Explorer UI Group 7";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
-        private TextBox txtPath;
-        private Button button1;
-        private ListView displayResult;
         private ImageList imageList1;
+        private TreeView treeView1;
+        private RichTextBox richTextBox1;
     }
 }

@@ -9,81 +9,82 @@ namespace WindowExplorerUI
         {
             InitializeComponent();
         }
-        public struct FileIcon
-        {
-            public IntPtr icon;
-            public IntPtr icon_;
-            public uint attrub;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            public string nameIcon;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-            public string tpName;
-        }
-        FileIcon fileIcon = new FileIcon();
-        public IntPtr file_img;
-        public static extern IntPtr GetFileInfor(string pathStr, uint fileatt, ref FileIcon psfi, uint sizefl, uint flag);
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string pathString = getPathFromTxt();
-            if(pathString !=  null )
-            {
-                Execute_Find(pathString);
-            }
-        }
 
-        public void Execute_Find(string pathString)
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            string selectedPath = e.Node.FullPath;
+            showList_File_Folder(selectedPath, e.Node);
+        }
+        private void showList_File_Folder(string strPath, TreeNode node_parent)
         {
             try
             {
-                displayResult.Items.Clear();
-                DirectoryInfo directory = new DirectoryInfo(pathString);
-                foreach(DirectoryInfo directoryInfo2 in directory.GetDirectories())
+                node_parent.Nodes.Clear();
+                if (Directory.Exists(strPath))
                 {
-                    ListViewItem list = new ListViewItem();
-                    list.Text = directoryInfo2.Name;
-                    list.ImageIndex = 1;
-                    displayResult.Items.Add(list);
-                }
-                foreach(FileInfo directoryInfo2 in directory.GetFiles())
-                {
-                    ListViewItem list = new ListViewItem();
-                    list.Text = directoryInfo2.Name;
-                    file_img = GetFileInfor(directory.FullName, 0, ref fileIcon, (uint)Marshal.SizeOf(fileIcon), 0x100 | 0x1);
-                    if(file_img != IntPtr.Zero)
+                    string[] directories = Directory.GetDirectories(strPath);
+                    foreach (string dir in directories)
                     {
-                        Icon fileIcon_ = Icon.FromHandle(fileIcon.icon);
-                        imageList1.Images.Add(fileIcon_);
-                        list.ImageIndex = imageList1.Images.Count - 1;
+                        TreeNode treeNode = new TreeNode(Path.GetFileName(dir));
+                        node_parent.Nodes.Add(treeNode);
                     }
-                    displayResult.Items.Add(list);
-                }
-                txtPath.Text = "";
-                txtPath.Controls.Clear();           
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-        /*foreach (string str in pathString.Split('\\')
-                {
-                    if(str != "")
+
+                    string[] listFileTxt = Directory.GetFiles(strPath, "*.txt");
+                    foreach (string file in listFileTxt)
                     {
-                        
+                        TreeNode treeNode = new TreeNode(Path.GetFileName(file));
+                        node_parent.Nodes.Add(treeNode);
                     }
-                }*/
-        private string getPathFromTxt()
-        {
-            string path = "";
-            if(txtPath.Text.Trim() != "")
-            {
-                path = txtPath.Text.Trim();
+                    string[] listFilePNG = Directory.GetFiles(strPath, "*.png");
+                    foreach (string file in listFilePNG)
+                    {
+                        TreeNode treeNode = new TreeNode(Path.GetFileName(file));
+                        node_parent.Nodes.Add(treeNode);
+                    }
+                    string[] listFileJPG = Directory.GetFiles(strPath, "*.jpg");
+                    foreach (string file in listFileJPG)
+                    {
+                        TreeNode treeNode = new TreeNode(Path.GetFileName(file));
+                        node_parent.Nodes.Add(treeNode);
+                    }
+                }
+                else
+                {
+                    if (strPath.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                        || strPath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase))
+                    {
+                        try
+                        {
+                            Image image = Image.FromFile(strPath);
+                            Clipboard.SetImage(image);
+                            richTextBox1.Text = "";
+                            richTextBox1.Paste();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: ", ex.Message);
+                        }
+                    }
+                    if (strPath.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                    {
+                        try
+                        {
+
+                            richTextBox1.Text = string.Empty;
+                            richTextBox1.Text = File.ReadAllText(strPath);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: ", ex.Message);
+                        }
+                    }
+                }
+
             }
-            /*else
+            catch (UnauthorizedAccessException)
             {
-                MessageBox.Show("Please add a path", "Unable to save", MessageBoxButtons.OK, MessageBoxIcon.Error);                
-            }*/
-            return path;
+                MessageBox.Show("Access Denied");
+            }
         }
     }
 }
